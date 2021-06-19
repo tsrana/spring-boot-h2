@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.p1 {
+  color: navy;
+  text-indent: 30px;
+  text-transform: uppercase;
+  background-color: #ffffb3;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
+}
+.p2 {
+  color: tomato;
+  text-indent: 30px;
+  text-transform: uppercase;
+  background-color:powderblue;
+  border: 2px solid black;
+  margin: 20px;
+  padding: 20px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+th {
+  color: navy;
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  background-color: powderblue;
+  text-align: center;
+  
+}
+td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+
+<body onload="getStudents()">
+<center>
+<h2>Student Data</h2>
+<div class="p1">
+<form name="myForm" id="myForm">
+	<label>ID:</label>
+	<input type="text" name="id" id="id" pattern="[0-9]" required>
+
+	<label">Name:</label>
+	<input type="text" name="name" id="name" required>
+
+		<p><label>Age:</label>
+	<input type="text" name="age" id="age">
+
+	<label">Email:</label>
+	<input type="text" name="email" id="email">
+	<br/><br/><br/>
+	<input value="ADD Student" type="button" onclick="submitform()">
+</form>
+</div>
+
+<script>
+function submitform(){
+	var formData = '{ "id": "'+document.getElementById("id").value+'", "age": "'+document.getElementById("age").value+'", "name": "'+document.getElementById("name").value+'", "email": "'+document.getElementById("email").value+'" }';	
+	//alert("This -- "+formData);
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("POST", "/student");
+	xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	xmlhttp.send(formData);
+	setTimeout(getStudents, 1000);
+}
+</script>
+  
+
+<p class="p2" id="getAllStudent"></p>
+<script>
+function getStudents(){
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.onload = function() {
+	  const myObj = JSON.parse(this.responseText);
+	  let text = "<table border='1'><tr><th>ID</th><th>Name</th><th>Age</th><th>Email</th><th></th></tr>"
+	  for (let x in myObj) {
+		text += "<tr><td>" + myObj[x].id + "</td><td>" + myObj[x].name + "</td><td>" + myObj[x].age + "</td><td>" + myObj[x].email + "</td><td><input value='Remove' type='button' onclick='removeStudent(" + myObj[x].id + ")'></td></tr>";
+	  }
+	  text += "</table>"    
+	  document.getElementById("getAllStudent").innerHTML = text;
+	}
+	xmlhttp.open("GET", "/student");
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.send();
+}
+
+function removeStudent(id){
+	const xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("DELETE", "/student/"+id);
+	xmlhttp.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+	xmlhttp.send();
+	setTimeout(getStudents, 1000);
+}
+</script>
+
+</center>
+</body>
+</html>
