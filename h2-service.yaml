@@ -1,0 +1,19 @@
+    
+  kind: Service
+  apiVersion: v1
+  metadata:
+    annotations:
+    name: h2-app
+    labels:
+      app: h2-app
+  spec:
+    ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    selector:
+      app: h2-app
+    type: ClusterIP
+    sessionAffinity: None
+        

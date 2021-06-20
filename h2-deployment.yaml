@@ -3,20 +3,28 @@ kind: Deployment
 metadata:
   name: h2-deployment
   labels:
-    app: h2
+    app: h2-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: h2
+      app: h2-app
   template:
     metadata:
       labels:
-        app: h2
+        app: h2-app
     spec:
       containers:
-      - name: h2
+      - name: h2-app
         imagePullPolicy: Always
         image: quay.io/tsrana/spring-boot-h2:latest
         ports:
         - containerPort: 8080
+        volumeMounts:
+        - name: h2-volume
+          mountPath: /var/local/h2
+      volumes:
+       - name: h2-volume
+         persistentVolumeClaim:
+           claimName: h2-pvc     
+        
