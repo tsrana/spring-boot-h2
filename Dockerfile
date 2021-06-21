@@ -14,4 +14,4 @@ RUN mvn -f /home/app/pom.xml clean package
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/home/app/target/spring-boot-h2-0.0.1-SNAPSHOT.jar", "--spring.config.name=/home/app/application_docker.properties"]
+ENTRYPOINT ["java", "-jar", "/home/app/target/spring-boot-h2-0.0.1-SNAPSHOT.jar"]
