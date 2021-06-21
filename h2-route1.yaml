@@ -1,0 +1,15 @@
+  kind: Route
+  apiVersion: route.openshift.io/v1
+  metadata:
+    name: h2-app1
+    labels:
+      app: h2-app1
+    annotations:
+  spec:
+    to:
+      kind: Service
+      name: h2-app1
+      weight: 100
+    port:
+      targetPort: 8080-tcp
+  wildcardPolicy: None

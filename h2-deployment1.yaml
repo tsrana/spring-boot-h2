@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: h2-deployment1
+  labels:
+    app: h2-app1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: h2-app1
+  template:
+    metadata:
+      labels:
+        app: h2-app1
+    spec:
+      containers:
+      - name: h2-app1
+        imagePullPolicy: Always
+        image: quay.io/tsrana/spring-boot-h2:latest
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: h2-volume
+          mountPath: /var/local/h2
+      volumes:
+       - name: h2-volume
+         persistentVolumeClaim:
+           claimName: h2-pvc     
+        
