@@ -6,10 +6,16 @@ services:
   - docker
 
 before_install:
-  - docker build -t h2-image .
-  - docker run -d --name h2 -p 8080:8080 h2-image
+#  - docker build -t h2-image .
+#  - docker run -d --name h2 -p 8080:8080 h2-image
   - docker ps -a
   
 
 script:
   - java --version
+  - cd ~
+  - pwd
+  - git clone --branch=master https://github.com/tsrana/spring-boot-h2-auto-test.git tsrana/spring-boot-h2-auto-test
+  - cd tsrana/spring-boot-h2-auto-test
+  - chmod +x geckodriver
+  - mvn clean test
