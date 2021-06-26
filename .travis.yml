@@ -10,6 +10,8 @@ before_install:
   - docker run -d --name h2 -p 8080:8080 h2-image
   - docker ps -a
   
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
   - java --version
