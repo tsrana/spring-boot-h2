@@ -26,3 +26,15 @@ script:
 #  - curl http://localhost:8080
   - mvn clean test
   - sh chkResult.sh
+
+after_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker tag h2-image tsrana1/spring-boot-h2:latest
+  - docker push tsrana1/spring-boot-h2:latest
+  
+notifications:  
+  email:  
+    recipients:  
+    - thecloudteacher@gmail.com  
+    on_success: always  
+    on_failure: always
