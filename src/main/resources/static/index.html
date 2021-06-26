@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Student Data</title>
 <style>
 .p1 {
   color: navy;
@@ -44,11 +45,13 @@ td {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+div { text-align: center; }
+h2 { text-align: center; }
 </style>
 </head>
 
 <body onload="getStudents()">
-<center>
 <h2>Student Data</h2>
 <div class="p1">
 <form name="myForm" id="myForm">
@@ -64,7 +67,7 @@ tr:nth-child(even) {
 	<label">Email:</label>
 	<input type="text" name="email" id="email">
 	<br/><br/><br/>
-	<input value="ADD Student" type="button" onclick="submitform()">
+	<input value="ADD Student" type="button" id="addst" onclick="submitform()">
 </form>
 </div>
 
@@ -89,7 +92,7 @@ function getStudents(){
 	  const myObj = JSON.parse(this.responseText);
 	  let text = "<table border='1'><tr><th>ID</th><th>Name</th><th>Age</th><th>Email</th><th></th></tr>"
 	  for (let x in myObj) {
-		text += "<tr><td>" + myObj[x].id + "</td><td>" + myObj[x].name + "</td><td>" + myObj[x].age + "</td><td>" + myObj[x].email + "</td><td><input value='Remove' type='button' onclick='removeStudent(" + myObj[x].id + ")'></td></tr>";
+		text += "<tr><td id='did'>" + myObj[x].id + "</td><td>" + myObj[x].name + "</td><td>" + myObj[x].age + "</td><td>" + myObj[x].email + "</td><td><input value='Remove' type='button' onclick='removeStudent(" + myObj[x].id + ")'></td></tr>";
 	  }
 	  text += "</table>"    
 	  document.getElementById("getAllStudent").innerHTML = text;
@@ -108,6 +111,6 @@ function removeStudent(id){
 }
 </script>
 
-</center>
+
 </body>
 </html>
