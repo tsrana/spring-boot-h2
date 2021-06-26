@@ -14,10 +14,8 @@ install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 script:
-  - java --version
-  - cd ~
-  - pwd
   - git clone --branch=master https://github.com/tsrana/spring-boot-h2-auto-test.git tsrana/spring-boot-h2-auto-test
   - cd tsrana/spring-boot-h2-auto-test
   - chmod +x geckodriver
+  - curl http://localhost:8080
   - mvn clean test
