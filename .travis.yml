@@ -1,6 +1,6 @@
 language: 
-  - java
   - python
+  - java
   
 jdk:
   - openjdk8
