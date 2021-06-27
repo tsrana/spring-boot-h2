@@ -1,5 +1,4 @@
 language: 
-  - python
   - java
   
 jdk:
@@ -9,6 +8,7 @@ addons:
   apt:
     packages:
       - libxml2-utils 
+      - python3
 
 services:
   - docker
