@@ -10,7 +10,7 @@ COPY application_docker.properties /home/app
 
 #RUN mkdir -p /var/local/h2
 
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn -f /home/app/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true clean package
 
 EXPOSE 8080
 
