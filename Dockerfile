@@ -15,3 +15,5 @@ RUN mvn -f /home/app/pom.xml -DskipTests=true -Dmaven.javadoc.skip=true clean pa
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "/home/app/target/spring-boot-h2-0.0.1-SNAPSHOT.jar"]
+
+ 
