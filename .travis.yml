@@ -12,6 +12,9 @@ addons:
 services:
   - docker
   
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V  
+
 before_script:
   - docker build -t h2-image .
   - docker run -d --name h2 -p 8080:8080 h2-image
