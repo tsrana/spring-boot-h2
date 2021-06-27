@@ -1,0 +1,42 @@
+language: 
+  - java
+  
+jdk:
+  - openjdk8
+  
+addons:
+  apt:
+    packages:
+      - libxml2-utils 
+      - python3
+
+services:
+  - docker
+  
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V  
+  - pip install sendgrid
+
+before_script:
+  - docker build -t h2-image .
+  - docker run -d --name h2 -p 8080:8080 h2-image
+  - docker ps -a
+
+script:
+  - git clone --branch=master https://github.com/tsrana/spring-boot-h2-auto-test.git tsrana/spring-boot-h2-auto-test
+  - cd tsrana/spring-boot-h2-auto-test
+  - chmod +x geckodriver chkResult.sh
+  - mvn clean test
+  - sh chkResult.sh
+
+after_script:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker tag h2-image tsrana1/spring-boot-h2:latest
+  - docker push tsrana1/spring-boot-h2:latest
+  
+notifications:  
+  email:  
+    recipients:  
+    - thecloudteacher@gmail.com  
+    on_success: always  
+    on_failure: always
