@@ -6,7 +6,7 @@ USER root
 
 COPY src /home/app/src
 COPY pom.xml /home/app
-COPY application_docker.properties /home/app
+#COPY application_docker.properties /home/app
 
 #RUN mkdir -p /var/local/h2
 
